@@ -13,8 +13,8 @@
 # Output File:
 # - cleaned_heart_data.csv
 #
-# Author: [Your Name]
-# Date: [Date]
+# Author: Laurindo C. Benjamim
+# Date: 09/03/2025
 # Version: 1.0
 ###############################################################################
 
@@ -100,6 +100,9 @@ merged_data[categorical_vars] <- lapply(
 missing_counts <- apply(merged_data, 1, function(x) sum(is.na(x)))
 merged_data <- merged_data[missing_counts <= 3, ]
 
+# Display categorical variables to verify changes.
+merged_data[, categorical_vars]
+
 # Final Data Structure Check --------------------------------------------------
 cat("\nFinal Data Structure:\n")
 str(merged_data)
@@ -110,3 +113,4 @@ print(colSums(is.na(merged_data)))
 # Export Cleaned Data ---------------------------------------------------------
 write.csv(merged_data, "cleaned_heart_data.csv", row.names = FALSE)
 cat("\nCleaned data saved as 'cleaned_heart_data.csv'")
+
