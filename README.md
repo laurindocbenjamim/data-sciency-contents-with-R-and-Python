@@ -25,7 +25,7 @@ Contributions are welcome! If you have interesting insights, code, or tutorials,
 ## 📌 DATA MINING
 
 📢 **Data Pre-Processing** 
-- **Lesson 02.v2**:
+- **Lesson 02**:
 
 
 
