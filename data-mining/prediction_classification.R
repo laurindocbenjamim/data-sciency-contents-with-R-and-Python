@@ -5,7 +5,7 @@ setwd("/home/feti/Documents/RProjects/data-sciency-contents-with-R-and-Python/da
 # installing the package
 install.packages("readxl", dependencies = TRUE)
 install.packages("caret", dependencies = TRUE)
-install.packages("dplyr", dependencies = TRUE)
+install.packages("dplyr")
 
 #load the libray
 library(caret)
@@ -67,8 +67,46 @@ summary(data)
 # Transforming dependent variable into 1 and 0
 # Checking levels first
 # Transform dependent variable into binary
-levels(data$RISK) <- c("good risk", "bad loss")
-data$RISK <- relevel(data$RISK, ref = "good risk")
+#levels(data$RISK) <- c("good risk", "bad loss")
+#data$RISK <- relevel(data$RISK, ref = "good risk")
 
 # Create 10 folds
 folds <- createFolds(data$RISK, k=10, list=TRUE, returnTrain=FALSE)
+
+# Initialize results list 
+results <- list()
+
+# 10 fold cross-validation loop
+for(i in 1:10){
+  # Split data
+  test_indices <- folds[[1]]
+  train_data <- data[-test_indices, ]
+  test_data <- data[test_indices,]
+  
+  # Train logic regression
+  model <- glm(
+    RISK ~ AGE + INCOME + GENDER + MARITAL + NUMKIDS + NUMCARDS + 
+      + HOWPAID + MORTGAGE + STORECAR + LOANS,
+    data = train_data,
+    family = binomial(link = "logit")
+  )
+  
+  # Predict probabilities 
+  predicted_probs <- predict(model, newdata = test_data, type="response")
+  
+  # Store results
+  results[[1]] <- data.frame(
+    ID =test_data$ID,
+    observed = as.numeric(test_data$RISK) - 1,  # Convert to 0/1 (subtract 1 since "bad loss" is 0)
+    ##observed = test_data$RISK,
+    predicted = predicted_probs
+  )
+  
+  
+}
+
+# Combine results
+final_predictions <- bind_rows(results)
+
+# show first few predictions
+head(final_predictions)
