@@ -1,7 +1,17 @@
 
+# Uncomment install.packages lines if you don't have these packages installed
+# install.packages("readxl")
+# install.packages("caTools")
+# install.packages("caret")
+ install.packages("randomForest")
 #install.packages("readODS")
+
 #library(readODS)
-library(readxl)
+library(readxl)         # For reading Excel files (not used here since we load a CSV)
+library(caTools)        # For splitting the dataset
+library(caret)          # For evaluation tools like confusionMatrix
+library(randomForest)   # For the Random Forest classifier
+ 
 # Loading dataset
 dataset <- read.csv("datasets/sales_dataset.csv")
 
@@ -49,8 +59,7 @@ dataset$Purchased <- factor(dataset$Purchased, levels = c('No', 'Yes'),
                             labels = c(1, 0))
 
 # Splitting the datasets into training set and test set
-#install.packages("caTools")
-library(caTools)
+
 # We define this to generate random numbers
 set.seed(123)
 split <- sample.split(dataset$Purchased, SplitRatio = 0.8)
@@ -70,3 +79,12 @@ test_set <- subset(dataset, split == FALSE)
 # in this case we transform only the real numeric attributes
 training_set[, 2:3] <- scale(training_set[, 2:3])
 test_set[,2:3] <- scale(test_set[, 2:3])
+
+# -------------------------------
+# 6. Classification Model: Logistic Regression
+# -------------------------------
+# Train a logistic regression classifier using all predictors
+classifier <- glm(Purchased~ ., family = binomial, data = training_set)
+
+# Predict probabilities in test set
+probabilities <- predict(classifier, newdata = test_set, type = "response")

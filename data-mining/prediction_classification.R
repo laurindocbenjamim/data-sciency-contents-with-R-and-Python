@@ -110,3 +110,12 @@ final_predictions <- bind_rows(results)
 
 # show first few predictions
 head(final_predictions)
+
+# calculating performance metric
+# converting probabilities to binary predictions (using 0.5 threshold)
+results$Predicted_Binary <- ifelse(results$predicted > 0.5, 1, 0)
+
+# Calculate accuracy
+accuracy <- mean(results$observed == results$Predicted_Binary)
+cat("Overal accuracy: ", accuracy, "\n")
+
