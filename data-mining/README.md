@@ -1,9 +1,7 @@
-# data-sciency-contents
-A collection of data science resources, including tutorials, code snippets, and project ideas. Covers topics like machine learning, data visualization, big data, and AI. Perfect for learners and professionals looking to enhance their data science skills. 🚀📊
 
 # Build a Classification model Using the OneR package
 
-🚀 Welcome to **Data Sciency Contents**!  
+[CODE FONT](https://github.com/laurindocbenjamim/data-sciency-contents-with-R-and-Python/blob/oneR-package/data-mining/classification_oneR_v1.R) 
 
 
 📢 **Data Pre-Processing** 
