@@ -31,4 +31,6 @@ for(i in 1:10){
   accuracy[i] <- sum(predict_classes==testset$RISK)/nrow(testset)
 }
 
-print(accuracy)
+mean_accuracy <- mean(accuracy)
+
+cat("Mean accuracy: ", mean_accuracy, "\n")

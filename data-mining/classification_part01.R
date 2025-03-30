@@ -27,7 +27,7 @@ df_classifier <- sapply(df, class)
 print(df_classifier)
 
 #_________________________________________________________________
-# PERFORMING THE TASK 01
+# PERFORMING THE TASK 02
 
 # Converting the categorical variable if needed
 risk_data <- as.data.frame(lapply(df_classifier, as.factor))
