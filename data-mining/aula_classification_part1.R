@@ -66,11 +66,11 @@ mean_auc <- mean(auc_values)
 tree_model <- rpart(RISK ~ ., data = df, method = "class")
 
 # Displaying results
-cat("Mean Accuracy: ", mean(accuracy), "\n")
-cat("Mean Precision: ", mean(precision), "\n")
-cat("Mean Recall: ", mean(recall), "\n")
-cat("Mean F1-score: ", mean(f1_score), "\n")
-cat("Mean AUC: ", mean_auc, "\n")
+cat("Mean Accuracy: ", mean(accuracy), "%\n")
+cat("Mean Precision: ", mean(precision), "%\n")
+cat("Mean Recall: ", mean(recall), "%\n")
+cat("Mean F1-score: ", mean(f1_score), "%\n")
+cat("Mean AUC: ", mean_auc, "%\n")
 
 # Plot the decision tree
 plot(tree_model)
