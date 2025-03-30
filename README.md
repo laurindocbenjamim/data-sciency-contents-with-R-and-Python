@@ -22,7 +22,6 @@ Contributions are welcome! If you have interesting insights, code, or tutorials,
 📢 **Stay curious and keep exploring the world of data!** 
 
 ## 📌 Projects
-**Create a Classification Model using OneR package**
-[ff.com](https://github.com/laurindocbenjamim/data-sciency-contents-with-R-and-Python/blob/lesson2/data-mining/classification_oneR_v1.R)
+[Create a Classification Model using OneR package](https://github.com/laurindocbenjamim/data-sciency-contents-with-R-and-Python/blob/lesson2/data-mining/classification_oneR_v1.R)
 
 
