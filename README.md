@@ -19,5 +19,10 @@ Feel free to explore the content, contribute, or suggest improvements. Whether y
 ## 🤝 Contributing  
 Contributions are welcome! If you have interesting insights, code, or tutorials, feel free to submit a pull request.  
 
-📢 **Stay curious and keep exploring the world of data!**  
+📢 **Stay curious and keep exploring the world of data!** 
+
+## 📌 Projects
+**Create a Classification Model using OneR package**
+[ff.com](https://github.com/laurindocbenjamim/data-sciency-contents-with-R-and-Python/blob/lesson2/data-mining/classification_oneR_v1.R)
+
 
