@@ -20,6 +20,9 @@ df$RISK <- relevel(df$RISK, ref = "0")  # Set "0" as the reference level
 # Creating 10-fold cross-validation
 folds_indices <- createFolds(df$RISK, k = 10)
 
+# Display the structure of the dataframe
+str(df)
+
 # Initializing performance metrics storage
 accuracy <- c()
 precision <- c()
@@ -35,24 +38,24 @@ abline(a = 0, b = 1, lty = 2, col = "gray")  # Diagonal reference line
 
 for (i in 1:10) {
   # Splitting data into training and testing sets
-  trainset <- df[-folds_indices[[i]],]
-  testset <- df[folds_indices[[i]],]
+  train_set <- df[-folds_indices[[i]],]
+  test_set <- df[folds_indices[[i]],]
   
   # Logistic Regression Model
-  model <- glm(RISK ~ ., data = trainset, family = binomial("logit"))
+  model <- glm(RISK ~ ., data = train_set, family = binomial("logit"))
   
   # Predictions
-  pred_probs <- predict(model, testset, type = "response")
+  pred_probs <- predict(model, test_set, type = "response")
   predicted_classes <- factor(ifelse(pred_probs >= 0.5, "1", "0"), levels = c("0", "1"))  # Convert to factor
   
   # Evaluating model performance
-  accuracy[i] <- accuracy_vec(testset$RISK, predicted_classes)
-  precision[i] <- precision_vec(testset$RISK, predicted_classes)
-  recall[i] <- recall_vec(testset$RISK, predicted_classes)
-  f1_score[i] <- f_meas_vec(testset$RISK, predicted_classes, beta = 1)
+  accuracy[i] <- accuracy_vec(test_set$RISK, predicted_classes)
+  precision[i] <- precision_vec(test_set$RISK, predicted_classes)
+  recall[i] <- recall_vec(test_set$RISK, predicted_classes)
+  f1_score[i] <- f_meas_vec(test_set$RISK, predicted_classes, beta = 1)
 
   # Compute ROC curve and AUC
-  roc_curve <- roc(testset$RISK, pred_probs, levels = c("0", "1"), direction = "<")
+  roc_curve <- roc(test_set$RISK, pred_probs, levels = c("0", "1"), direction = "<")
   auc_values[i] <- auc(roc_curve)
   
   # Plot ROC curve for this fold
