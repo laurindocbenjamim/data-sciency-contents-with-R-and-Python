@@ -10,12 +10,17 @@ setwd("~/Documents/RProjects/data-sciency-contents-with-R-and-Python/data-mining
 data <- read_excel("Classify_risk_dataset.xlsx")
 
 # Converting the dataset into a dataframe
-df <- data.frame(data)
+df <- as.data.frame(data)
 
 # Ensuring RISK is a factor
 df$RISK <- as.factor(df$RISK)
 levels(df$RISK) <- c("1", "0")  # Ensure correct factor levels
 df$RISK <- relevel(df$RISK, ref = "0")  # Set "0" as the reference level
+
+# Checking for missing value in dataset
+cat("Missing values in dataset\n")
+print(colSums(is.na(df)))
+df <- na.omit(df)
 
 # Creating 10-fold cross-validation
 folds_indices <- createFolds(df$RISK, k = 10)
