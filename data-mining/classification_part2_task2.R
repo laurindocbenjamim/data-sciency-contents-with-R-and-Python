@@ -19,7 +19,7 @@ data <- read_excel("Classify_risk_dataset.xlsx")
 df <- as.data.frame(data)
 
 # Classifying the dependent variable/attribute
-df$RISK <- trimws(dataset$RISK)
+df$RISK <- trimws(df$RISK)
 df$RISK <- as.factor(df$RISK)
 levels(df$RISK) <- c("1", "0") # bad loss=1, good risk = 0
 df$RISK <- relevel(df$RISK, ref = "0")
@@ -48,6 +48,12 @@ recall_score_vec <- c()
 f1_score_vec <- c()
 auc_values <- c()
 
+# ROC curve plotting setup
+plot(NULL, xlim = c(0, 1), ylim = c(0, 1), xlab = "False Positive Rate (FPR)", 
+     ylab = "True Positive Rate (TPR)", main = "ROC Curves for 10-Fold Cross-Validation")
+abline(a = 0, b = 1, lty = 2, col = "gray")  # Diagonal reference line
+
+
 for(i in 1:10){
   # creating training and testing sets
   test_indexes <- folder_indexes[[i]]
@@ -63,18 +69,11 @@ for(i in 1:10){
   predicted_classes <- predict(model, test_set)
   
   # Calculte accuracy 
-  accuracy <- mean(predicted_classes == test_set$RISK)
+  accuracy_score <- mean(predicted_classes == test_set$RISK)
   accuracy_list <- c(accuracy_list, accuracy_score)
   
   # Focus on positive class probabilities (Assuming positive 
   # class is 'bad loss' or 'Positive')
-  if("0" %in% colnames(probs)){
-    prob_positive_class <- c(prob_positive_class, probs[, "0"])
-  }else if("1" %in% colnames(probs)){
-    prob_positive_class <- c(prob_positive_class, probs[, "1"])
-  }else{
-    stop("Could not find the positive class. Check column names in 'probs'.")
-  }
   
   if ("1" %in% colnames(probs)) {
     prob_positive_class <- probs[, "1"]
